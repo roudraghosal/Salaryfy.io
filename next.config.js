@@ -40,8 +40,9 @@ const nextConfig = {
     },
 
     // Experimental features for better performance
+    // Note: optimizeCss disabled for static export compatibility
     experimental: {
-        optimizeCss: true,
+        // optimizeCss: true,
     },
 }
 

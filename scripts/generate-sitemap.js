@@ -15,7 +15,7 @@ async function generateSitemap() {
         hostname: 'https://salaryfy.io'
     })
 
-    const writeStream = createWriteStream(path.join(__dirname, 'public', 'sitemap.xml'))
+    const writeStream = createWriteStream(path.join(__dirname, '..', 'public', 'sitemap.xml'))
     sitemap.pipe(writeStream)
 
     pages.forEach(page => {
