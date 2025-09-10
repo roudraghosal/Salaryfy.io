@@ -1,0 +1,51 @@
+{
+  "name": "Salaryfy.io - Financial Calculator",
+  "short_name": "Salaryfy.io",
+  "description": "Calculate salary breakdowns, understand tax deductions, and improve financial literacy with our comprehensive tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "productivity", "education"],
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Salary Calculator",
+      "short_name": "Calculator",
+      "url": "/salary-breakdown",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Tax Info",
+      "short_name": "Tax Info",
+      "url": "/tax-info",
+      "icons": [
+        {
+          "src": "/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
