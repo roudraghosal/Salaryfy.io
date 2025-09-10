@@ -18,7 +18,7 @@ export default function Analytics() {
 
         // Google Analytics
         const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
-        
+
         if (GA_TRACKING_ID && typeof window.gtag !== 'undefined') {
             const url = pathname + (searchParams ? searchParams.toString() : '')
             window.gtag('config', GA_TRACKING_ID, {
@@ -31,7 +31,7 @@ export default function Analytics() {
     // Track custom events
     const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
         if (process.env.NODE_ENV === 'development') return
-        
+
         const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
         if (GA_TRACKING_ID && typeof window.gtag !== 'undefined') {
             window.gtag('event', eventName, {
@@ -44,7 +44,7 @@ export default function Analytics() {
 
     // Expose tracking function globally for components to use
     useEffect(() => {
-        ;(window as any).trackEvent = trackEvent
+        ; (window as any).trackEvent = trackEvent
     }, [])
 
     return null
@@ -53,7 +53,7 @@ export default function Analytics() {
 // Utility functions for tracking specific events
 export const trackCalculation = (calculatorType: string, values: Record<string, any>) => {
     if (typeof window !== 'undefined' && (window as any).trackEvent) {
-        ;(window as any).trackEvent('salary_calculation', {
+        ; (window as any).trackEvent('salary_calculation', {
             calculator_type: calculatorType,
             gross_salary_range: values.grossSalary ? getRange(values.grossSalary) : undefined,
             event_category: 'calculator'
@@ -63,7 +63,7 @@ export const trackCalculation = (calculatorType: string, values: Record<string, 
 
 export const trackArticleRead = (articleTitle: string, readTime: string) => {
     if (typeof window !== 'undefined' && (window as any).trackEvent) {
-        ;(window as any).trackEvent('article_read', {
+        ; (window as any).trackEvent('article_read', {
             article_title: articleTitle,
             read_time: readTime,
             event_category: 'education'
@@ -73,7 +73,7 @@ export const trackArticleRead = (articleTitle: string, readTime: string) => {
 
 export const trackDownload = (downloadType: string) => {
     if (typeof window !== 'undefined' && (window as any).trackEvent) {
-        ;(window as any).trackEvent('file_download', {
+        ; (window as any).trackEvent('file_download', {
             download_type: downloadType,
             event_category: 'engagement'
         })

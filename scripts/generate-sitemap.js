@@ -14,10 +14,10 @@ async function generateSitemap() {
     const sitemap = new SitemapStream({
         hostname: 'https://salaryfy.io'
     })
-    
+
     const writeStream = createWriteStream(path.join(__dirname, 'public', 'sitemap.xml'))
     sitemap.pipe(writeStream)
-    
+
     pages.forEach(page => {
         sitemap.write({
             url: page.url,
@@ -26,9 +26,9 @@ async function generateSitemap() {
             lastmod: new Date().toISOString(),
         })
     })
-    
+
     sitemap.end()
-    
+
     return streamToPromise(sitemap)
 }
 

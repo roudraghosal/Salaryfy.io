@@ -17,7 +17,7 @@ export default function PerformanceMonitor() {
         const measurePerformance = () => {
             const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
             const paint = performance.getEntriesByType('paint')
-            
+
             const fcp = paint.find(entry => entry.name === 'first-contentful-paint')?.startTime
 
             setMetrics({

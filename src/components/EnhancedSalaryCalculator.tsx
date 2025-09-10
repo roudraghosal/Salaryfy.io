@@ -39,7 +39,7 @@ export default function EnhancedSalaryCalculator() {
         age: '',
         hasInsurance: false
     })
-    
+
     const [breakdown, setBreakdown] = useState<EnhancedBreakdown | null>(null)
     const [isCalculating, setIsCalculating] = useState(false)
     const [errors, setErrors] = useState<ValidationError[]>([])
@@ -47,7 +47,7 @@ export default function EnhancedSalaryCalculator() {
 
     const validateInput = useCallback((): ValidationError[] => {
         const errors: ValidationError[] = []
-        
+
         const salary = parseFloat(input.grossSalary)
         if (!input.grossSalary || isNaN(salary) || salary <= 0) {
             errors.push({ field: 'grossSalary', message: 'Please enter a valid gross salary' })
@@ -68,12 +68,12 @@ export default function EnhancedSalaryCalculator() {
     const calculateAdvancedBreakdown = useCallback((input: SalaryInput): EnhancedBreakdown => {
         const gross = parseFloat(input.grossSalary)
         const age = parseInt(input.age)
-        
+
         // Advanced salary structure calculations
         const basicSalary = Math.min(gross * 0.4, 15000) // Basic salary with ceiling
         const hra = input.city === 'metro' ? gross * 0.5 : gross * 0.4 // HRA based on city
         const standardDeduction = 50000 // Standard deduction
-        
+
         // Calculate actual HRA based on rent (assuming 30% of gross as rent)
         const rentPaid = gross * 12 * 0.3 // Assuming 30% as rent annually
         const actualHRA = Math.min(
@@ -81,26 +81,26 @@ export default function EnhancedSalaryCalculator() {
             rentPaid - (basicSalary * 12 * 0.1),
             input.city === 'metro' ? basicSalary * 12 * 0.5 : basicSalary * 12 * 0.4
         )
-        
+
         const allowances = gross - basicSalary - (hra / 12)
-        
+
         // Deductions
         const providentFund = basicSalary * 0.12
         const professionalTax = Math.min(2500 / 12, gross * 0.002)
-        
+
         // Income tax calculation with new regime option
         const annualGross = gross * 12
         const taxableIncome = annualGross - standardDeduction - (actualHRA || 0) - (providentFund * 12)
         const incomeTax = calculateIncomeTax(Math.max(0, taxableIncome), age) / 12
-        
+
         const otherDeductions = input.hasInsurance ? 0 : gross * 0.005 // Health insurance premium
-        
+
         const netSalary = gross - providentFund - professionalTax - incomeTax - otherDeductions
         const takeHomePercentage = (netSalary / gross) * 100
-        
+
         // Calculate potential tax savings
         const maxTaxSavings = calculateTaxSavings(taxableIncome, age)
-        
+
         return {
             grossSalary: gross,
             basicSalary,
@@ -122,7 +122,7 @@ export default function EnhancedSalaryCalculator() {
         const limit1 = age >= 60 ? 300000 : 250000
         const limit2 = age >= 60 ? 500000 : 500000
         const limit3 = 1000000
-        
+
         if (annualIncome > limit1) {
             if (annualIncome <= limit2) {
                 tax += (annualIncome - limit1) * 0.05
@@ -132,7 +132,7 @@ export default function EnhancedSalaryCalculator() {
                 tax += (limit2 - limit1) * 0.05 + (limit3 - limit2) * 0.2 + (annualIncome - limit3) * 0.3
             }
         }
-        
+
         // Add cess
         tax += tax * 0.04
         return Math.max(0, tax)
@@ -148,18 +148,18 @@ export default function EnhancedSalaryCalculator() {
     const handleCalculate = async () => {
         const validationErrors = validateInput()
         setErrors(validationErrors)
-        
+
         if (validationErrors.length > 0) {
             setAnnouncement(`Please fix ${validationErrors.length} error(s) in the form`)
             return
         }
-        
+
         setIsCalculating(true)
         setAnnouncement('Calculating salary breakdown...')
-        
+
         // Simulate API call delay for better UX
         await new Promise(resolve => setTimeout(resolve, 800))
-        
+
         try {
             const result = calculateAdvancedBreakdown(input)
             setBreakdown(result)
@@ -175,9 +175,9 @@ export default function EnhancedSalaryCalculator() {
 
     const savingsOpportunities = useMemo(() => {
         if (!breakdown) return []
-        
+
         const opportunities = []
-        
+
         if (breakdown.taxSavings && breakdown.taxSavings > 1000) {
             opportunities.push({
                 type: 'Tax Savings',
@@ -185,7 +185,7 @@ export default function EnhancedSalaryCalculator() {
                 description: 'Invest in 80C instruments to save tax'
             })
         }
-        
+
         if (breakdown.takeHomePercentage < 75) {
             opportunities.push({
                 type: 'Salary Structure',
@@ -193,14 +193,14 @@ export default function EnhancedSalaryCalculator() {
                 description: 'Optimize salary structure for better take-home'
             })
         }
-        
+
         return opportunities
     }, [breakdown])
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
             <LiveRegion message={announcement} />
-            
+
             <div className="container mx-auto px-4 max-w-6xl">
                 {/* Header */}
                 <motion.div
@@ -240,9 +240,8 @@ export default function EnhancedSalaryCalculator() {
                                         type="number"
                                         value={input.grossSalary}
                                         onChange={(e) => setInput(prev => ({ ...prev, grossSalary: e.target.value }))}
-                                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                                            getFieldError('grossSalary') ? 'border-red-500' : 'border-gray-300'
-                                        }`}
+                                        className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${getFieldError('grossSalary') ? 'border-red-500' : 'border-gray-300'
+                                            }`}
                                         placeholder="Enter your monthly gross salary"
                                         aria-describedby={getFieldError('grossSalary') ? 'gross-salary-error' : undefined}
                                     />
@@ -270,11 +269,10 @@ export default function EnhancedSalaryCalculator() {
                                                 onChange={(e) => setInput(prev => ({ ...prev, city: e.target.value as 'metro' | 'non-metro' }))}
                                                 className="sr-only"
                                             />
-                                            <div className={`flex-1 p-3 border-2 rounded-lg text-center transition-all ${
-                                                input.city === city
+                                            <div className={`flex-1 p-3 border-2 rounded-lg text-center transition-all ${input.city === city
                                                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300'
                                                     : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400'
-                                            }`}>
+                                                }`}>
                                                 {city === 'metro' ? 'Metro City' : 'Non-Metro City'}
                                             </div>
                                         </label>
@@ -291,9 +289,8 @@ export default function EnhancedSalaryCalculator() {
                                     type="number"
                                     value={input.age}
                                     onChange={(e) => setInput(prev => ({ ...prev, age: e.target.value }))}
-                                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${
-                                        getFieldError('age') ? 'border-red-500' : 'border-gray-300'
-                                    }`}
+                                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white ${getFieldError('age') ? 'border-red-500' : 'border-gray-300'
+                                        }`}
                                     placeholder="Enter your age"
                                     min="18"
                                     max="70"
@@ -369,7 +366,7 @@ export default function EnhancedSalaryCalculator() {
                                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
                                         Detailed Breakdown
                                     </h3>
-                                    
+
                                     <div className="space-y-3">
                                         {[
                                             { label: 'Basic Salary', value: breakdown.basicSalary, positive: true },
@@ -388,11 +385,10 @@ export default function EnhancedSalaryCalculator() {
                                                 className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
                                             >
                                                 <span className="text-gray-600 dark:text-gray-300">{item.label}</span>
-                                                <span className={`font-semibold ${
-                                                    item.positive 
-                                                        ? 'text-green-600 dark:text-green-400' 
+                                                <span className={`font-semibold ${item.positive
+                                                        ? 'text-green-600 dark:text-green-400'
                                                         : 'text-red-600 dark:text-red-400'
-                                                }`}>
+                                                    }`}>
                                                     {item.positive ? '+' : '-'}₹{Math.abs(item.value).toLocaleString('en-IN')}
                                                 </span>
                                             </motion.div>

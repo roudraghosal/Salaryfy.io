@@ -5,7 +5,7 @@ import { useTheme } from './ThemeProvider'
 
 export default function ToastProvider() {
     const { theme } = useTheme()
-    
+
     return (
         <Toaster
             position="bottom-right"
@@ -25,7 +25,7 @@ export default function ToastProvider() {
                     fontSize: '14px',
                     maxWidth: '500px',
                 },
-                
+
                 // Success
                 success: {
                     iconTheme: {
@@ -33,7 +33,7 @@ export default function ToastProvider() {
                         secondary: '#ffffff',
                     },
                 },
-                
+
                 // Error
                 error: {
                     iconTheme: {
@@ -41,7 +41,7 @@ export default function ToastProvider() {
                         secondary: '#ffffff',
                     },
                 },
-                
+
                 // Loading
                 loading: {
                     iconTheme: {

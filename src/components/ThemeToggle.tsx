@@ -5,7 +5,16 @@ import { useTheme } from './ThemeProvider'
 import { motion } from 'framer-motion'
 
 export default function ThemeToggle() {
-    const { theme, toggleTheme } = useTheme()
+    const { theme, toggleTheme, mounted } = useTheme()
+
+    // Show a placeholder during SSR
+    if (!mounted) {
+        return (
+            <div className="p-2 rounded-lg bg-gray-100 text-gray-800 transition-colors w-9 h-9">
+                <Moon className="w-5 h-5" />
+            </div>
+        )
+    }
 
     return (
         <motion.button

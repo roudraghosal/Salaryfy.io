@@ -68,7 +68,7 @@ export default function RootLayout({
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="manifest" href="/manifest.json" />
                 <meta name="theme-color" content="#0ea5e9" />
-                <link rel="apple-touch-icon" href="/icon-192x192.png" />
+                <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
             </head>
             <body className={inter.className}>
                 <ThemeProvider>

@@ -163,20 +163,18 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                                             <motion.button
                                                 key={result.id}
                                                 onClick={() => handleResultClick(result.url)}
-                                                className={`w-full flex items-center px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
-                                                    selectedIndex === index 
-                                                        ? 'bg-primary-50 dark:bg-primary-900/20 border-r-2 border-primary-500' 
+                                                className={`w-full flex items-center px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${selectedIndex === index
+                                                        ? 'bg-primary-50 dark:bg-primary-900/20 border-r-2 border-primary-500'
                                                         : ''
-                                                }`}
+                                                    }`}
                                                 whileHover={{ x: 4 }}
                                             >
-                                                <div className={`p-2 rounded-lg mr-4 ${
-                                                    result.category === 'tool' 
+                                                <div className={`p-2 rounded-lg mr-4 ${result.category === 'tool'
                                                         ? 'bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-400'
                                                         : result.category === 'article'
-                                                        ? 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400'
-                                                        : 'bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-400'
-                                                }`}>
+                                                            ? 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-400'
+                                                            : 'bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-400'
+                                                    }`}>
                                                     <Icon className="w-5 h-5" />
                                                 </div>
                                                 <div className="flex-1">

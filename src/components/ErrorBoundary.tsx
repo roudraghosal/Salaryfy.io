@@ -43,7 +43,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                         <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
                             <AlertTriangle className="w-8 h-8 text-red-600" />
                         </div>
-                        
+
                         <div className="space-y-2">
                             <h2 className="text-xl font-semibold text-gray-900">
                                 Something went wrong
