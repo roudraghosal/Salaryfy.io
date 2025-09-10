@@ -1,0 +1,14 @@
+# Salaryfy.io
+
+## About
+Salaryfy.io is a financial awareness and empowerment platform that helps users understand their salary structure, optimize taxes, and improve financial literacy.
+
+## Features
+- Salary breakdown calculator with visual charts
+- Comprehensive tax information and calculators  
+- Financial education articles and guides
+- Modern, responsive design
+- Interactive user interface
+
+## Technology
+Built with Next.js, TypeScript, Tailwind CSS, Chart.js, and Framer Motion.
